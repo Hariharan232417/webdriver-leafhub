@@ -839,6 +839,7 @@ public class SeleniumBase extends ExtentReporter implements Browser, Element  {
 		try {
 			FileUtils.copyFile(getDriver().getScreenshotAs(OutputType.FILE),
 					new File("./"+ExtentReporter.folderName+"/images/" + number + ".jpg"));
+					
 		} catch (WebDriverException e) {
 			reportStep("The browser has been closed." + e.getMessage(), "fail");
 		} catch (IOException e) {

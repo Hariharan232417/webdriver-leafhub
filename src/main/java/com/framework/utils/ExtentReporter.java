@@ -32,7 +32,7 @@ public abstract class ExtentReporter extends DriverInstance {
 
 	@BeforeSuite(alwaysRun = true)
 	public synchronized void startReport() {
-		folderName = "reports/";
+		folderName = "reports";
 
 		File folder = new File("./" + folderName);
 		if (!folder.exists()) {
@@ -77,7 +77,7 @@ public abstract class ExtentReporter extends DriverInstance {
 				snapNumber = takeSnap();
 				try {
 					img = MediaEntityBuilder
-							.createScreenCaptureFromPath("./../../" + folderName + "/images/" + snapNumber + ".jpg")
+							.createScreenCaptureFromPath(System.getProperty("user.dir") + "/"+folderName + "/images/" + snapNumber + ".jpg")
 							.build();
 				} catch (IOException e) {
 				}
