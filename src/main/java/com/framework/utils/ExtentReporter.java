@@ -2,6 +2,8 @@ package com.framework.utils;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import org.openqa.selenium.remote.UnreachableBrowserException;
 import org.testng.annotations.AfterMethod;
@@ -28,11 +30,13 @@ public abstract class ExtentReporter extends DriverInstance {
 	
 	private String fileName = "result.html";
 	public String testcaseName, testDescription, authors, category, dataFileName, dataFileType, excelFileName;
+	private String pattern = "dd-MMM-yyyy HH-mm-ss";
 	public static String folderName = "";
 
 	@BeforeSuite(alwaysRun = true)
 	public synchronized void startReport() {
-		folderName = "reports";
+		String date = new SimpleDateFormat(pattern).format(new Date());
+		folderName = "reports/" + date;
 
 		File folder = new File("./" + folderName);
 		if (!folder.exists()) {
@@ -42,9 +46,9 @@ public abstract class ExtentReporter extends DriverInstance {
 		htmlReporter.config().setTestViewChartLocation(ChartLocation.BOTTOM);
 		htmlReporter.config().setChartVisibilityOnOpen(!true);
 		htmlReporter.config().setTheme(Theme.STANDARD);
-		htmlReporter.config().setDocumentTitle("Learner Hub");
+		htmlReporter.config().setDocumentTitle("Leaftaps");
 		htmlReporter.config().setEncoding("utf-8");
-		htmlReporter.config().setReportName("Selenium UI Automation");
+		htmlReporter.config().setReportName("Leaftaps");
 		htmlReporter.setAppendExisting(true);
 		extent = new ExtentReports();
 		extent.attachReporter(htmlReporter);
@@ -77,7 +81,7 @@ public abstract class ExtentReporter extends DriverInstance {
 				snapNumber = takeSnap();
 				try {
 					img = MediaEntityBuilder
-							.createScreenCaptureFromPath(System.getProperty("user.dir") + "/"+folderName + "/images/" + snapNumber + ".jpg")
+							.createScreenCaptureFromPath("./../../" + folderName + "/images/" + snapNumber + ".jpg")
 							.build();
 				} catch (IOException e) {
 				}
